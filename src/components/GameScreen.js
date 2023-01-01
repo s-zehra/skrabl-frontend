@@ -75,11 +75,12 @@ const GameScreen = ({
   const [pouch, setPouch] = useState([]);
   const [computerRackTiles, setComputerRackTiles] = useState([]);
   const fillPouch = async () => {
-    const res = await axios.post("https://skrabl-backend.vercel.app/getPouch", {
+    const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/getPouch`, {
       lang,
     });
     setPouch(res.data);
   };
+
   const moment = require("moment");
   let now = moment();
   const [newMessage, setNewMessage] = useState();
@@ -374,7 +375,7 @@ const GameScreen = ({
   //______________________________________________________________________________
   const computerMove = () => {
     axios
-      .post("https://skrabl-backend.vercel.app/computerMove/", {
+      .post(`${process.env.REACT_APP_SERVER_URL}/computerMove`, {
         rackTiles: computerRackTiles,
         boardState,
         computerConsecutivePasses,
@@ -645,7 +646,7 @@ const GameScreen = ({
       var newWords = wordsOnBoard.filter((word) => word.newWord === true);
       setTurnWords(newWords);
       axios
-        .post("https://skrabl-backend.vercel.app/verifyWord", {
+        .post(`${process.env.REACT_APP_SERVER_URL}/verifyWord`, {
           words: newWords,
           lang,
         })
